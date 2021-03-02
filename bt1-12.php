@@ -10,106 +10,80 @@ $product[6] = array( 'name' => "VGA", 'price' => 60, 'quality' => 35, 'categoryI
 $product[7] = array( 'name' => "Monitor", 'price' => 120, 'quality' => 28, 'categoryId' => 2);	
 $product[8] = array( 'name' => "Case", 'price' => 120, 'quality' => 28, 'categoryId' => 5);	
 
-
 $Category[0]= array( 'id' => 1, 'name' => "Comuter");
 $Category[1]= array( 'id' => 2, 'name' => "Memory");	
 $Category[2]= array( 'id' => 3, 'name' => "Card");	
 $Category[3]= array( 'id' => 4, 'name' => "Acsesory");			
- function findProduct($listProduct, $nameProduct) 
- {
- 	for($i = 0; $i < count($listProduct); $i++)
- 	{
- 		if($listProduct[$i]['name'] == $nameProduct)
- 		{
- 			print_r($listProduct[$i]);
- 		}
- 	}
-
- }
-function findProductByCategory($listProduct, $categoryId) 
+function findProduct($listProduct, $nameProduct) 
 {
 	for($i = 0; $i < count($listProduct); $i++)
- 	{
- 		if($listProduct[$i]['categoryId'] == $categoryId)
- 		{
- 			print_r($listProduct[$i]);
- 		}
- 	}
+	{
+		if($listProduct[$i]['name'] == $nameProduct)
+		{
+			return var_dump($listProduct[$i]);
+		}
+		return null;
+	}
+
+}
+function findProductByCategory($listProduct, $categoryId) 
+{
+	$var = array();
+	for($i = 0; $i < count($listProduct); $i++)
+	{
+		
+		if($listProduct[$i]['categoryId'] == $categoryId)
+		{
+			array_push($var, $listProduct[$i]);
+		}
+
+	}
+	var_dump($var);
 }
 
 function findProductByPrice($listProduct, $price)
 {
-for($i = 0; $i < count($listProduct); $i++)
- 	{
- 		if($listProduct[$i]['price'] <= $price)
- 		{
- 			print_r($listProduct[$i]);
- 		}
- 	}
+	for($i = 0; $i < count($listProduct); $i++)
+	{
+		if($listProduct[$i]['price'] <= $price)
+		{
+			print_r($listProduct[$i]);
+		}
+	}
 }
-
 
 function sortByPrice($listProduct) 
 {
-for($i = 0; $i < count($listProduct); $i++)
-{
-	for($j = 0; $j < count($listProduct); $j++)
-{
-	if ($listProduct[$i]['price'] > $listProduct[$j]['price']) {
-		    $tmp = $listProduct[$j];
-            $listProduct[$j] = $listProduct[$i];
-            $listProduct[$i]= $tmp;
-	}
-}
-}
-
-for($i = 0; $i < count($listProduct); $i++)
+	for($i = 0; $i < count($listProduct); $i++)
 	{
-		print_r($listProduct[$i]['price']);
+		for($j = 0; $j < count($listProduct); $j++)
+		{
+			if ($listProduct[$i]['price'] > $listProduct[$j]['price']) {
+				$tmp = $listProduct[$j];
+				$listProduct[$j] = $listProduct[$i];
+				$listProduct[$i]= $tmp;
+			}
+		}
 	}
-}
-
-function sortByName0($listProduct) 
-{
-for($i = 0; $i < count($listProduct); $i++)
-{
-	for($j = 0; $j < count($listProduct); $j++)
-{
-	if ( strlen($listProduct[$i]['name']) > strlen($listProduct[$j]['name'])) {
-		    $tmp = $listProduct[$j];
-            $listProduct[$j] = $listProduct[$i];
-            $listProduct[$i]= $tmp;
-	}
-}
-}
-
-for($i = 0; $i < count($listProduct); $i++)
-	{
-		print_r($listProduct[$i]['name']);
-	}
+    return $listProduct;
 }
 
 function sortByName($listProduct) 
 {
 	for($i = 0; $i < count($listProduct); $i++)
-{
-	$loop = $i;
-	$current = $listProduct[$i];
-	while($loop > 0 && strlen($listProduct[$loop - 1]['name']) < strlen($current['name']))
-        {
-            // Di dời các phần tử lên 1 bậc
-            $listProduct[$loop] = $listProduct[$loop - 1];
-            $loop -= 1;
-        }
-        $listProduct[$loop] = $current;
-}
-
-
-for($i = 0; $i < count($listProduct); $i++)
 	{
-		print_r($listProduct[$i]['name']);
+		$loop = $i;
+		$current = $listProduct[$i];
+		while($loop > 0 && strlen($listProduct[$loop - 1]['name']) < strlen($current['name']))
+		{
+            // Di dời các phần tử lên 1 bậc
+			$listProduct[$loop] = $listProduct[$loop - 1];
+			$loop -= 1;
+		}
+		$listProduct[$loop] = $current;
 	}
+	return $listProduct;
 }
-
-sortByName($product);
+findProduct($product,"CPO");
+findProductByCategory($product, 1) 
 ?>
