@@ -1,64 +1,54 @@
 <?php
 
 function calSalary($salary,$n)
-{
-	if($n<1)
+{	
+	for ($i=1; $i<$n ; $i++)
 	{
-		$salary;
+		$salary=$salary*1.1;
 	}
-	else
-		for ($i=1; $i<$n ; $i++)
-		{
-			$salary=$salary*1.1;
-		}
-		return $salary;
+	return $salary;
 }
-print_r(calSalary(100,5));
+// print_r(calSalary(100,2));
 
 function calSalaryRecursion($salary,$n){
 	if($n<=1)
 	{
 		return $salary;
 	}
-	else
-	{
-		return calSalaryRecursion($salary*1.1,$n-1);
-	}	
+	return calSalaryRecursion($salary*1.1,$n-1);	
 }
-print_r(calSalaryRecursion(100,5));
+// print_r(calSalaryRecursion(100,2));
 
 function calMonth($money, $rate)
 {
 	$startmoney = $money;
 	$count=0;
-	for ($i=0; $i<300 ; $i++)
+	while($money < $startmoney*2)
 	{
+		$count++;
 		$money = $money*(1+$rate);
-		if ($money <= $startmoney*2)
-		{
-            $count++;
-		}	
-	}
-	return $count;
+	}	
+	return $count;	
+	
 }
-print_r(calMonth(100,0.05));
+print_r(calMonth(100,0.06));
 
-function calMoney($money, $rate)
+function calMoney($money, $rate, $month)
+{
+	if($month == 0) 
 	{
-	  return $money = $money*($rate+1);
+		return $money;
 	}
-
-function calMonth0($money, $rate){
-	$startmoney = $money;
-	$n=0;
-	if(calMoney($money,$rate) >= 2*$startmoney)
-	{
-		return $n;
-	}
-	else 
-	{
-		return calMoney($money, $rate);	 	
-	}
+	return calMoney($money, $rate, $month-1)+ calMoney($money, $rate, $month-1)*($rate/100) ;
 }
-print_r(calMonth0(100,0.05));
-	?>
+
+function calMonthRecursion($money, $rate){
+	$month=0;
+	while(calMoney($money, $rate, $month) < 2*$money)
+	{	
+		$month++;
+	}	
+	return $month;
+}
+print(calMonthRecursion(100,6));
+?>

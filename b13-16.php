@@ -11,10 +11,10 @@ $product[7] = array( 'name' => "Monitor", 'price' => 120, 'quality' => 28, 'cate
 $product[8] = array( 'name' => "Case", 'price' => 120, 'quality' => 28, 'categoryId' => 4);	
 
 
-$Category[0]= array( 'id' => 1, 'name' => "Comuter");
-$Category[1]= array( 'id' => 2, 'name' => "Memory");	
-$Category[2]= array( 'id' => 3, 'name' => "Card");	
-$Category[3]= array( 'id' => 4, 'name' => "Acsesory");	
+$category[0]= array( 'id' => 1, 'name' => "Comuter");
+$category[1]= array( 'id' => 2, 'name' => "Memory");	
+$category[2]= array( 'id' => 3, 'name' => "Card");	
+$category[3]= array( 'id' => 4, 'name' => "Acsesory");	
 
 function sortByCategoryName(&$listProduct, $listCategory){
 	for($i = 0; $i < count($listProduct); $i++)
@@ -40,7 +40,7 @@ function sortByCategoryName(&$listProduct, $listCategory){
 	}
 	return $listProduct;
 }
-print_r(sortByCategoryName($product,$Category));
+//print_r(sortByCategoryName($product,$category));
 
 function mapProductByCategory($listProduct, $listCategory)
 {
@@ -56,39 +56,32 @@ function mapProductByCategory($listProduct, $listCategory)
 	}
 	return $listProduct;
 }
-print_r(mapProductByCategory($product,$Category));
+//print_r(mapProductByCategory($product,$category));
 
 function minByPrice($listProduct) 
 {
+	$minPrice = $listProduct[0]['price'];
 	for($i = 0; $i < count($listProduct); $i++)
 	{
-		for($j = 0; $j < count($listProduct); $j++)
+		if ($listProduct[$i]['price'] < $minPrice)
 		{
-			if ($listProduct[$i]['price'] < $listProduct[$j]['price']) {
-				$tmp = $listProduct[$j];
-				$listProduct[$j] = $listProduct[$i];
-				$listProduct[$i]= $tmp;
-			}
+			$minPrice = $listProduct[$i]['price'];
 		}
 	}
-	return $listProduct[0];
+	return $minPrice;
 }
 print_r(minByPrice($product));
 
-function maxByPrice($listProduct) 
-{
+function maxByPrice($listProduct) {
+	$maxPrice = $listProduct[0]['price'];
 	for($i = 0; $i < count($listProduct); $i++)
 	{
-		for($j = 0; $j < count($listProduct); $j++)
+		if ($listProduct[$i]['price'] > $maxPrice)
 		{
-			if ($listProduct[$i]['price'] > $listProduct[$j]['price']) {
-				$tmp = $listProduct[$j];
-				$listProduct[$j] = $listProduct[$i];
-				$listProduct[$i]= $tmp;
-			}
+			$maxPrice = $listProduct[$i]['price'];
 		}
 	}
-	return $listProduct[0];
+	return $maxPrice;
 }
 print_r(maxByPrice($product));
 ?>
